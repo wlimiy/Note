@@ -1,4 +1,4 @@
-![Image text](https://github.com/wlimiy/Note/tree/master/vueTodoList/image/img.png)
+![Image text](https://github.com/wlimiy/Note/blob/master/vueTodoList/image/img.png)
 ### 功能开发
 1. input输入框的内容回车显示在列表页
 2. 列表页的内容可以点击删除按钮删除

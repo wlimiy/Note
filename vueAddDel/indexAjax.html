@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container" id="app">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered">
+                <caption class="h3 text-warning text-center">
+                    人员信息
+                </caption>
+                <tr>
+                    <th class="text-center">用户名</th>
+                    <th class="text-center">联系方式</th>
+                    <th class="text-center">操作</th>
+                </tr>
+                <tr v-for="(user,index) of users">
+                    <td class="text-center">{{user.name}}</td>
+                    <td class="text-center">{{user.tel}}</td>
+                    <td style="text-align: center"><button class="btn btn-danger" @click='del(index)'>删除</button></td>
+                </tr>
+            </table>
+            <form action="">
+                <div class="form-group">
+                    <label for="username">用户名</label>
+                    <input type="text" class="form-control" id="username" v-model="list.name">
+                </div>
+                <div>
+                    <label for="tel">联系方式</label>
+                    <input type="text" class="form-control" id="tel" v-model="list.tel">
+                </div>
+                <div style="margin-top: 20px">
+                    <button type="button" class="btn btn-success" @click='add'>增加</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="user.json" type="application/json"></script>
+<script type="text/javascript">
+    let vm=new Vue({
+        el:'#app',
+        data:{
+            users:'',
+            list:{name:"",tel:""}
+        },
+        created(){
+          let that=this;
+          let xhr=new XMLHttpRequest();
+          xhr.open('get','./user.json');
+          xhr.onreadystatechange=function () {
+              if(this.readyState===4&&/^2\d{2}$/.test(this.status)){
+                  let initData=JSON.parse(this.responseText);
+                  that.users=initData;
+              }
+          };
+          xhr.send();
+        },
+        methods:{
+            add(){
+                if(this.list.name&&this.list.tel){
+                    this.users.push(this.list);
+                    this.list={name:"",tel:""}
+                }else{
+                    alert('请将信息填写完整')
+                }
+            },
+            del(ind){
+                this.users=this.users.filter((item,index)=>{
+                    return index!=ind
+                })
+            }
+        }
+
+    })
+</script>
+</body>
+</html>

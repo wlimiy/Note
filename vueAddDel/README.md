@@ -138,8 +138,10 @@ let vm=new Vue({
         }
     }
 });
-
+ ```
  - 也可以使用计算属性
+
+  ```
  computed:{
         checkAll:{
             get(){
